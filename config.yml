@@ -1,0 +1,24 @@
+#This config file is used to read all the values that we are going to use in future events and past events #file
+
+#passteventsstime is number of days to capture builds from now
+pasteventstime: 7
+
+#futureeventstime is number of days to predict scheduled jobs builds from now
+futureeventstime: 7
+
+pasteventscalId: <ENTER_YOUR_CALENDAR_ID>
+pasteventsdateformat: <ENTER_PAST_EVENTS_DATE_FORMAT> #for eg:"%H:%M:%S"
+
+#Google calendar related information like username, password, email and author.
+googlecalendarusername: <ENTER_YOUR_USERNAME>
+googlecalendarpassword: <ENTER_YOUR_PASSWORD>
+googledateformat: <ENTER_GOOGLE_DATE_FORMAT> #for eg:"%Y-%m-%d"
+email: <ENTER_YOUR_EMAIL>
+author: <ENTER_AUTHOR>
+
+#Jenkins related information like server_ip, port, username, password
+:server_ip: <ENTER_JENKINS_SERVER_IP>
+:server_port: <ENTER_JENKINS_PORT>
+:jenkins_path: ''
+:username: <ENTER_JENKINS_USERNAME>
+:password: <ENTER_JENKINS_PASSWORD>
