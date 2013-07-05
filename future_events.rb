@@ -54,7 +54,7 @@ class FutureEvents
 		cron_parser = CronParser.new(triggervalue)
 		time = Time.now
 		lastday = time + (config['futureeventstime']*24*60*60)
-		while time < lastday do
+		if time < lastday
 		starttime = time
 		next_comming_time = cron_parser.next(time)
 		buildno = buildno.to_i()+1
