@@ -46,27 +46,27 @@ class PastEvents
 		filtered_jobs = []
 		response_json_builds["builds"].each do |pastjob|
 		buildtime = pastjob["id"].to_s.split('_')[0]
-		puts "inside"
-		puts pasttime
-		   if Time.parse(buildtime) >= pasttime
-			summary = job + " build #" + pastjob["number"].to_s + " " + pastjob["result"]
-			content = "Check the status for build #" + pastjob["number"].to_s + " here "+ pastjob["url"]
-			builddate = DateTime.parse(pastjob["id"].to_s.split('_')[0]+ " " + pastjob["id"].to_s.split('_')[1].gsub("-",":"))
-			starttime = builddate.strftime(config['pasteventsdateformat'])
-			buildendtime = Time.parse(starttime) + (pastjob["duration"]/(1000))
-			googlestartdate = builddate.strftime(config['googledateformat'])+'T'+starttime.to_s+'.000Z'
-			googleenddate = builddate.strftime(config['googledateformat'])+'T'+buildendtime.strftime(config['pasteventsdateformat'])+'.000Z'
+		if !(buildtime.nil?) && !(pastjob["number"].to_s.nil?) && !(pastjob["result"].nil?)
+			   if Time.parse(buildtime) >= pasttime
+				summary = job + " build #" + pastjob["number"].to_s + " " + pastjob["result"]
+				content = "Check the status for build #" + pastjob["number"].to_s + " here "+ pastjob["url"]
+				builddate = DateTime.parse(pastjob["id"].to_s.split('_')[0]+ " " + pastjob["id"].to_s.split('_')[1].gsub("-",":"))
+				starttime = builddate.strftime(config['pasteventsdateformat'])
+				buildendtime = Time.parse(starttime) + (pastjob["duration"]/(1000))
+				googlestartdate = builddate.strftime(config['googledateformat'])+'T'+starttime.to_s+'.000Z'
+				googleenddate = builddate.strftime(config['googledateformat'])+'T'+buildendtime.strftime(config['pasteventsdateformat'])+'.000Z'
 
-			event = {
-			  :title=>summary,  
-			  :content=>content,
-			  :author=>config['author'], 
-			  :email=>config['email'], 
-			  :startTime=>googlestartdate,
-			  :endTime=>googleenddate}
-			response = gcalsession.new_event(event, config['pasteventscalId'])
-			puts 'done'
-		   end
+				event = {
+				  :title=>summary,  
+				  :content=>content,
+				  :author=>config['author'], 
+				  :email=>config['email'], 
+				  :startTime=>googlestartdate,
+				  :endTime=>googleenddate}
+				response = gcalsession.new_event(event, config['pasteventscalId'])
+				puts 'done'
+			   end
+		end
 		end
 		}
 		puts "--------- Adding last week build info. ends here -------"
