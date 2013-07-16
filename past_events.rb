@@ -45,7 +45,7 @@ class PastEvents
 		response_json_builds = @client.api_get_request("/job/#{job}", "depth=1&tree=builds[id,duration,number,result,url]")
 		filtered_jobs = []
 		response_json_builds["builds"].each do |pastjob|
-		buildtime = pastjob["id"].to_s.split('_')[0]
+		buildtime = pastjob["id"].to_s.split('_')[0] + " " + pastjob["id"].to_s.split('_')[1].gsub("-",":")
 		if !(buildtime.nil?) && !(pastjob["number"].to_s.nil?) && !(pastjob["result"].nil?)
 			   if Time.parse(buildtime) >= pasttime
 				summary = job + " build #" + pastjob["number"].to_s + " " + pastjob["result"]
@@ -74,3 +74,4 @@ class PastEvents
 end
 
 puts PastEvents.new
+
